@@ -1,5 +1,9 @@
 language: node_js
 node_js:
+<<<<<<< HEAD
+=======
+  - "node"
+>>>>>>> [#186] Downgrade CI node.js to v.7
   - "7"
 before_script:
   - npm install
