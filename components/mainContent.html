@@ -25,8 +25,9 @@
                 <a class="blue" ng-click="editing=false;">Cancel</a>
               </div>
           </div>
-          <li ng-controller="MessageCtrl" id="{{ message.$id }}" enter-click class="message" ng-class="{'flip': isEditing}" ng-repeat="message in messages | filter: {type: {id: type.id}} | orderBy: sortField:getSortOrder()">
-            <div messageId="{{ message.$id }}" x-lvl-draggable x-lvl-drop-target="true" x-on-drop="droppedEvent(dragEl, dropEl)" draggable="{{ !isEditing }}">
+          <li ng-controller="MessageCtrl" id="{{ message.$id }}" enter-click class="message" ng-class="{'flip': isEditing}" ng-repeat="message in messages | filter: {type: {id: type.id}, text: filterMessage} | orderBy: getSortFields()">
+            <div messageId="{{ message.$id }}" x-lvl-draggable x-lvl-drop-target="true" x-on-drop="dropCardOnCard(dragEl, dropEl)" draggable="{{ !isEditing }}">
+
               <div class="front" ng-class="{'filter': message.creating}">
                   <div class="message-body">
                       <div class="text">{{message.text}}</div>
