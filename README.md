@@ -14,7 +14,7 @@ Fun retrospective guide at [Dummies guide to retrospectives](https://github.com/
 2. Fun Retro is using [Firebase](http://www.firebase.com). First create an account at firebase. Then create a test project.
 3. Enable sign-up using Email/Password for your project.  This can be done
    through the 'Authentication' tab for the project.
-4. Change the file on js/vendor/firebaseinitialization.js and replace the values with your project values
+4. Change the file on js/vendor/firebaseInitialization.js and replace the values with your project values
 ```
 var config = {
   apiKey: "YOUR_API_KEY",
