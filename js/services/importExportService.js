@@ -184,8 +184,8 @@ angular
     importExportService.generateCsv = function(board, messages, sortField) {
 
       var columns = board.columns.map(function(column, columnIndex) {
-        // Using index + 1 because column IDs start from 1
-        var columnMessages = $filter('filter')(messages, getColumnFieldObject(columnIndex + 1));
+        // Updated to use column.id, as columns could be any number when changed.
+        var columnMessages = $filter('filter')(messages, getColumnFieldObject(column.id));
         var sortedColumnMessages = $filter('orderBy')(columnMessages, importExportService.getSortFields(sortField));
         
         var messagesText = sortedColumnMessages.map(function(message) { 
