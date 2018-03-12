@@ -419,10 +419,11 @@ blockquote {
   justify-content: space-around;
   align-items: center;
   background: $light-green;
+  border-bottom: 1px solid #02a043;
 
   p {
     display: flex;
-    font-size: 16px;
+    font-size: 15px;
     align-items: center;
   }
 
@@ -442,7 +443,7 @@ blockquote {
     padding: 5px 10px;
     margin: 0 auto;
     margin-left: 20px;
-    font-size: 16px;
+    font-size: 12px;
     color: white;
     text-align: center;
     background: #8e24aa;
