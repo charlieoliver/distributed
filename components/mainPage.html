@@ -1,15 +1,66 @@
 <div class="home" ng-show="userId === ''" ng-cloak>
   <section>
     <h1>
-      <img src="img/logo.png" alt="fun retro logo" />Fun Retro</h1>
+      <img src="img/logo.png" alt="fun retro logo" />FunRetro
+      <br />
+      <small>Free Online Retrospective Tool</small>
+    </h1>
+
     <button ng-click="modalService.openAddNewBoard(this)">NEW BOARD</button>
+    <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+    <script type='text/javascript'>(function ($) { window.fnames = new Array(); window.ftypes = new Array(); fnames[ 0 ] = 'EMAIL'; ftypes[ 0 ] = 'email'; fnames[ 1 ] = 'FNAME'; ftypes[ 1 ] = 'text'; fnames[ 2 ] = 'LNAME'; ftypes[ 2 ] = 'text'; }(jQuery)); var $mcj = jQuery.noConflict(true);</script>
+    <script async type='text/javascript' src='//cdn.carbonads.com/carbon.js?zoneid=1698&serve=CVYD42E&placement=funretrogithubio'
+      id='_carbonads_js'></script>
+  </section>
+  <section class="difference-versions">
+    <h2>Differences between the free and
+      <a href="https://funretro.io">Premium</a> versions</h2>
+    <p class="premium-desc">With the premium version you can see the history of all your retrospectives, better control of who can edit your board,
+      manage multiple teams and much more!</p>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th class="text-left">FEATURES</th>
+          <th>FREE</th>
+          <th>PREMIUM</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="feature in features">
+          <td class="text-left">
+            <span>
+              <strong>
+                {{ feature.name }}
+              </strong>
+            </span>
+          </td>
+          <td>
+            <span class="red-feature" ng-if="feature.free !== 'X' && feature.free !== ''">{{ feature.free }}</span>
+            <i ng-if="feature.free === 'X'" class="fa fa-check">
+            </i>
+            <i ng-if="feature.free === ''" class="fa fa-times">
+            </i>
+          </td>
+          <td>
+            <span class="green-feature" ng-if="feature.premium !== 'X' && feature.premium !== ''">{{ feature.premium }}</span>
+            <i ng-if="feature.premium === 'X'" class="fa fa-check">
+            </i>
+            <i ng-if="feature.premium === ''" class="fa fa-times">
+            </i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <a class="button" href="https://funretro.io">CHECK PREMIUM VERSION</a>
+  </section>
+  <section>
     <div id="mc_embed_signup">
       <form title="email subscription" action="//funretrospectives.us13.list-manage.com/subscribe/post?u=a1df66d58e9447064d73bf0bc&amp;id=405856384a"
         method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
         <div id="mc_embed_signup_scroll">
           <fieldset class="subscribe">
             <legend>Email Subscription</legend>
-            <h2>Wanna be notified of updates?</h2>
+            <h2>Receive tips & tricks about retrospectives</h2>
             <input type="email" value="" name="EMAIL" placeholder="Enter your email address" class="subscribe__email" id="mce-EMAIL"
               novalidate aria-label="Email address" />
             <input type="submit" title="email submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe">
@@ -24,11 +75,7 @@
         </div>
       </form>
     </div>
-    <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
-    <script type='text/javascript'>(function ($) { window.fnames = new Array(); window.ftypes = new Array(); fnames[ 0 ] = 'EMAIL'; ftypes[ 0 ] = 'email'; fnames[ 1 ] = 'FNAME'; ftypes[ 1 ] = 'text'; fnames[ 2 ] = 'LNAME'; ftypes[ 2 ] = 'text'; }(jQuery)); var $mcj = jQuery.noConflict(true);</script>
-    <script async type='text/javascript' src='//cdn.carbonads.com/carbon.js?zoneid=1698&serve=CVYD42E&placement=funretrogithubio'
-      id='_carbonads_js'></script>
-    <a href="https://github.com/funretro/distributed/blob/master/PRIVACY.MD" target="_black">Read the Privacy Policy</a>
+    <a href="https://github.com/funretro/distributed/blob/master/PRIVACY.MD" target="_black">Privacy Policy</a>
     <p class="website">Learn more about retrospectives at
       <a href="http://funretrospectives.com" target="_blank">funretrospectives.com</a>
     </p>
@@ -58,8 +105,5 @@
       It is time to gather data, talk about the positive stuff, recognize people and seek improvements. Select an activity, create
       and customize your board. Go for it!
     </p>
-  </section>
-  <section>
-    <button class="alone" ng-click="modalService.openAddNewBoard(this)">NEW BOARD</button>
   </section>
 </div>

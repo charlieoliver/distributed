@@ -4,27 +4,134 @@
 angular
   .module('fireideaz')
 
-  .controller('MainCtrl', ['$scope', '$filter', '$window', 'Utils', 'Auth',
-  '$rootScope', 'FirebaseService', 'ModalService',
-    function ($scope, $filter, $window, utils, auth, $rootScope, firebaseService, modalService) {
+  .controller('MainCtrl', [
+    '$scope',
+    '$filter',
+    '$window',
+    'Utils',
+    'Auth',
+    '$rootScope',
+    'FirebaseService',
+    'ModalService',
+    function($scope, $filter, $window, utils, auth, $rootScope, firebaseService, modalService) {
       $scope.loading = true;
       $scope.messageTypes = utils.messageTypes;
       $scope.utils = utils;
       $scope.newBoard = {
         name: '',
-        text_editing_is_private: true
+        text_editing_is_private: true,
       };
+      $scope.features = [
+        {
+          name: 'Unlimited public boards',
+          free: 'X',
+          premium: 'X',
+        },
+        {
+          name: 'Create and merge cards',
+          free: 'X',
+          premium: 'X',
+        },
+        {
+          name: 'Sort and search cards',
+          free: 'X',
+          premium: 'X',
+        },
+        {
+          name: 'Export PDF and import/export CSV',
+          free: 'X',
+          premium: 'X',
+        },
+        {
+          name: 'Edit or delete columns',
+          free: 'Everyone',
+          premium: 'Only board creator',
+        },
+        {
+          name: 'Edit or delete cards',
+          free: 'Everyone',
+          premium: 'Only card creator and admin',
+        },
+        {
+          name: 'Maximum columns',
+          free: '6',
+          premium: 'Unlimited',
+        },
+        {
+          name: 'History and search of past retrospectives',
+          free: '',
+          premium: 'X',
+        },
+        {
+          name: 'Manage multiple teams',
+          free: '',
+          premium: 'X',
+        },
+        {
+          name: 'Unlimited team boards',
+          free: '',
+          premium: 'X',
+        },
+        {
+          name: 'Invite people to retrospectives',
+          free: '',
+          premium: 'X',
+        },
+        {
+          name: 'Order cards inside a column',
+          free: '',
+          premium: 'X',
+        },
+        {
+          name: 'Change color of a column',
+          free: '',
+          premium: 'X',
+        },
+        {
+          name: 'Login using Google and Email',
+          free: '',
+          premium: 'X',
+        },
+        {
+          name: 'Comments on cards',
+          free: '',
+          premium: 'X',
+        },
+        {
+          name: "Display card's author",
+          free: '',
+          premium: 'X',
+        },
+        {
+          name: 'Pre-defined retrospective formats',
+          free: '',
+          premium: 'X',
+        },
+        {
+          name: 'Clone a board',
+          free: '',
+          premium: 'X',
+        },
+        {
+          name: 'Slack integration',
+          free: '',
+          premium: 'X',
+        },
+      ];
       $scope.userId = $window.location.hash.substring(1) || '';
       $scope.searchParams = {};
-      $window.location.search.substr(1).split('&').forEach(function(pair){
-        var keyValue = pair.split('=');
-        $scope.searchParams[keyValue[0]] = keyValue[1];
-      });
+      $window.location.search
+        .substr(1)
+        .split('&')
+        .forEach(function(pair) {
+          var keyValue = pair.split('=');
+          $scope.searchParams[keyValue[0]] = keyValue[1];
+        });
       $scope.sortField = $scope.searchParams.sort || 'date_created';
       $scope.selectedType = 1;
       $scope.import = {
-        data : [],
-        mapping : []
+        data: [],
+        mapping: [],
       };
 
       $scope.droppedEvent = function(dragEl, dropEl) {
@@ -35,8 +142,8 @@ angular
         dragMessageRef.once('value', function() {
           dragMessageRef.update({
             type: {
-              id: drop.data('column-id')
-            }
+              id: drop.data('column-id'),
+            },
           });
         });
       };
@@ -61,7 +168,9 @@ angular
           $scope.boardContext = $rootScope.boardContext = board.val().boardContext;
           $scope.loading = false;
           $scope.hideVote = board.val().hide_vote;
-          setTimeout(function() {new EmojiPicker();}, 100);
+          setTimeout(function() {
+            new EmojiPicker();
+          }, 100);
         });
 
         $scope.boardRef = board;
@@ -86,7 +195,7 @@ angular
 
       $scope.updatePrivateWritingToggle = function(privateWritingOn) {
         $scope.boardRef.update({
-          text_editing_is_private: privateWritingOn
+          text_editing_is_private: privateWritingOn,
         });
       };
 
@@ -105,8 +214,7 @@ angular
       };
 
       function redirectToBoard() {
-        window.location.href = window.location.origin +
-          window.location.pathname + '#' + $scope.userId;
+        window.location.href = window.location.origin + window.location.pathname + '#' + $scope.userId;
       }
 
       $scope.isBoardNameInvalid = function() {
@@ -124,20 +232,23 @@ angular
 
         var callback = function(userData) {
           var board = firebaseService.getBoardRef($scope.userId);
-          board.set({
-            boardId: $scope.newBoard.name,
-            date_created: new Date().toString(),
-            columns: $scope.messageTypes,
-            user_id: userData.uid,
-            max_votes: $scope.newBoard.max_votes || 6,
-            text_editing_is_private : $scope.newBoard.text_editing_is_private
-          }, function(error) {
-             if (error) {
+          board.set(
+            {
+              boardId: $scope.newBoard.name,
+              date_created: new Date().toString(),
+              columns: $scope.messageTypes,
+              user_id: userData.uid,
+              max_votes: $scope.newBoard.max_votes || 6,
+              text_editing_is_private: $scope.newBoard.text_editing_is_private,
+            },
+            function(error) {
+              if (error) {
                 $scope.loading = false;
-             } else {
+              } else {
                 redirectToBoard();
-             }
-          });
+              }
+            }
+          );
 
           $scope.newBoard.name = '';
         };
@@ -147,31 +258,32 @@ angular
 
       $scope.changeBoardContext = function() {
         $scope.boardRef.update({
-          boardContext: $scope.boardContext
+          boardContext: $scope.boardContext,
         });
       };
 
       $scope.changeBoardName = function(newBoardName) {
         $scope.boardRef.update({
-          boardId: newBoardName
+          boardId: newBoardName,
         });
 
         modalService.closeAll();
       };
 
       $scope.updateSortOrder = function() {
-        var updatedFilter = $window.location.origin + $window.location.pathname + '?sort=' + $scope.sortField + $window.location.hash;
+        var updatedFilter =
+          $window.location.origin + $window.location.pathname + '?sort=' + $scope.sortField + $window.location.hash;
         $window.history.pushState({ path: updatedFilter }, '', updatedFilter);
       };
 
       $scope.addNewColumn = function(name) {
-        if(typeof name === 'undefined' || name === '') {
+        if (typeof name === 'undefined' || name === '') {
           return;
         }
 
         $scope.board.columns.push({
           value: name,
-          id: utils.getNextId($scope.board)
+          id: utils.getNextId($scope.board),
         });
 
         var boardColumns = firebaseService.getBoardColumns($scope.userId);
@@ -181,7 +293,7 @@ angular
       };
 
       $scope.changeColumnName = function(id, newName) {
-        if(typeof newName === 'undefined' || newName === '') {
+        if (typeof newName === 'undefined' || newName === '') {
           return;
         }
 
@@ -199,7 +311,7 @@ angular
 
       $scope.deleteColumn = function(column) {
         $scope.board.columns = $scope.board.columns.filter(function(_column) {
-            return _column.id !== column.id;
+          return _column.id !== column.id;
         });
 
         var boardColumns = firebaseService.getBoardColumns($scope.userId);
@@ -217,21 +329,25 @@ angular
         var id = message.key;
         angular.element($('#' + id)).scope().isEditing = true;
         new EmojiPicker();
-        $('#' + id).find('textarea').focus();
+        $('#' + id)
+          .find('textarea')
+          .focus();
       }
 
       $scope.addNewMessage = function(type) {
-        $scope.messages.$add({
-          text: '',
-          creating: true,
-          user_id: $scope.userUid,
-          type: {
-            id: type.id
-          },
-          date: firebaseService.getServerTimestamp(),
-          date_created: firebaseService.getServerTimestamp(),
-          votes: 0
-        }).then(addMessageCallback);
+        $scope.messages
+          .$add({
+            text: '',
+            creating: true,
+            user_id: $scope.userUid,
+            type: {
+              id: type.id,
+            },
+            date: firebaseService.getServerTimestamp(),
+            date_created: firebaseService.getServerTimestamp(),
+            votes: 0,
+          })
+          .then(addMessageCallback);
       };
 
       $scope.deleteCards = function() {
@@ -271,7 +387,7 @@ angular
         }
       };
 
-      $scope.cleanImportData = function () {
+      $scope.cleanImportData = function() {
         $scope.import.data = [];
         $scope.import.mapping = [];
         $scope.import.error = '';
@@ -285,5 +401,5 @@ angular
         $scope.userId = $window.location.hash.substring(1) || '';
         auth.logUser($scope.userId, getBoardAndMessages);
       });
-    }
+    },
   ]);

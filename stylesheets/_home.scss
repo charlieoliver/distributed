@@ -84,6 +84,12 @@
       margin-right: 40px;
       margin-left: 0;
     }
+
+    &.premium-desc {
+      width: 55%;
+      margin: 0;
+      margin-bottom: 50px;
+    }
   }
 
   img {
@@ -139,12 +145,12 @@
   }
 
   button,
-  .button {
+  .button,
+  a.button {
     display: block;
     width: 160px;
     height: 47px;
-    margin: 0 auto;
-    margin-top: 60px;
+    margin: 60px auto;
     font-size: 16px;
     color: white;
     background: $purple;
@@ -158,6 +164,12 @@
         margin-bottom: 20px;
       }
     }
+  }
+
+  a.button {
+    width: 200px;
+    height: auto;
+    padding: 15px 20px;
   }
 
   ul {
@@ -223,7 +235,7 @@
   }
 
   a.carbon-text,
-  input[type="submit"] {
+  input[type='submit'] {
     position: relative;
     top: 0;
     display: inline-block;
@@ -246,4 +258,15 @@
   margin: 1em 0 2em;
   font-size: 14px;
   color: #555;
+}
+
+.difference-versions {
+  padding-bottom: 30px;
+  margin: 0;
+  background: #f1f1f1;
+
+  h2 {
+    margin-top: 20px;
+    font-size: 2em;
+  }
 }
