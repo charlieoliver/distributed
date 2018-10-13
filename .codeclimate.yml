@@ -1,6 +1,7 @@
 languages:
-   JavaScript: true
+  JavaScript: true
 exclude_paths:
-- "dist/*"
-- "js/vendor/*"
-- "css/vendor/*"
+  - 'dist/*'
+  - 'test/*'
+  - 'js/vendor/*'
+  - 'css/vendor/*'
