@@ -1,8 +1,7 @@
 'use strict';
 
-angular
-  .module('fireideaz')
-  .service('CsvService', [function () {
+angular.module('fireideaz').service('CsvService', [
+  function() {
     var csvService = {};
 
     var arrayExists = function(array) {
@@ -30,41 +29,42 @@ angular
     };
 
     csvService.buildCsvText = function(doubleArray) {
-        var csvText ='';
-        
-        var longestColumn = csvService.determineLongestColumn(doubleArray);
+      var csvText = '';
 
-        // Going by row because CVS are ordered by rows
-        for(var rowIndex = 0; rowIndex < longestColumn; rowIndex++) {
-          for(var columnIndex = 0; columnIndex < longestColumn; columnIndex++) {
-            var column = doubleArray[columnIndex];
-            if(!arrayExists(column)) {
-              break;
-            }
+      var longestColumn = csvService.determineLongestColumn(doubleArray);
 
-            var nextValue = column[rowIndex];
-            if(isEmptyCell(nextValue)) {
-              nextValue = '';
-            }
-
-            if(isString(nextValue)) {
-              nextValue = endodeForCsv(nextValue);
-            }
-
-            csvText += nextValue + ',';
+      // Going by row because CSVs are ordered by rows
+      for (var rowIndex = 0; rowIndex < longestColumn; rowIndex++) {
+        for (var columnIndex = 0; columnIndex < longestColumn; columnIndex++) {
+          var column = doubleArray[columnIndex];
+          if (!arrayExists(column)) {
+            break;
           }
-  
-          csvText += '\r\n';
-        }
-  
-        return csvText;
-      };
 
-      csvService.determineLongestColumn = function(doubleArray) {
-        return doubleArray.reduce(function(prev, next) {
-          return next.length > prev ? next.length: prev;
-        }, doubleArray.length);
-      };
+          var nextValue = column[rowIndex];
+          if (isEmptyCell(nextValue)) {
+            nextValue = '';
+          }
+
+          if (isString(nextValue)) {
+            nextValue = endodeForCsv(nextValue);
+          }
+
+          csvText += nextValue + ',';
+        }
+
+        csvText += '\r\n';
+      }
+
+      return csvText;
+    };
+
+    csvService.determineLongestColumn = function(doubleArray) {
+      return doubleArray.reduce(function(prev, next) {
+        return next.length > prev ? next.length : prev;
+      }, doubleArray.length);
+    };
 
     return csvService;
-  }]);
+  }
+]);
