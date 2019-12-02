@@ -61,7 +61,7 @@ exports.newboard = functions.https.onRequest(function(req, res) {
       if (error) {
         return error;
       } else {
-        var url = 'https://funretro.github.io/distributed/#' + userId;
+        var url = 'https://github.com/Lilanga/retro/#' + userId;
         res.send(url);
       }
     });
