@@ -3,11 +3,6 @@ table th {
   border-bottom: 1px solid #ddd;
 }
 
-.table tbody tr td {
-  border-top: none;
-  border-bottom: 1px solid #ddd;
-}
-
 .text-left {
   text-align: left;
 }
@@ -41,7 +36,7 @@ table th {
     padding-bottom: 15px;
     font-size: 1.2em;
     font-weight: bold;
-    color: #555 !important;
+    color: #555;
     border: none;
   }
 }
@@ -61,6 +56,8 @@ span {
 td {
   width: 5%;
   padding: 5px 0;
+  border-top: none;
+  border-bottom: 1px solid #ddd;
 
   &:first-child {
     width: 10%;
