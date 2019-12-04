@@ -116,11 +116,12 @@ gulp.task("watch", function(cb) {
   watch("js/**/*.js", minifyJS);
 });
 
-gulp.task("lint", function() {
-  return gulp
+gulp.task("lint", function(done) {
+   gulp
     .src(["!js/vendor/**/*.js", "js/**/*.js"])
     .pipe(jshint(".jshintrc"))
     .pipe(jshint.reporter("jshint-stylish"));
+    done();
 });
 
 gulp.task("watch_test", function(done) {
@@ -164,6 +165,6 @@ gulp.task("copy", function(done) {
 });
 
 gulp.task("default", ()=> gulp.series('bundle', 'copy', 'express', 'livereload', 'watch')());
-gulp.task("test", function() { return gulp.series({ lint, watch_test})});
-gulp.task("testci", function() { return gulp.series({ lint, test_once})});
-gulp.task("build", function() { return gulp.series({ clean_dist, bundle, copy})});
+gulp.task("test", (done)=> gulp.series('lint', 'watch_test')(done()));
+gulp.task("testci", (done)=> gulp.series('lint', 'test_once')(done()));
+gulp.task("build", (done)=> gulp.series('clean_dist', 'bundle', 'copy')(done()));

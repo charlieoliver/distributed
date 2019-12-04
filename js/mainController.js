@@ -79,7 +79,6 @@ angular
             window.location.hash = '';
             location.reload();
           }
-
           $scope.board = board.val();
           $scope.maxVotes = board.val().max_votes ? board.val().max_votes : 6;
           $scope.boardId = $rootScope.boardId = board.val().boardId;
@@ -123,9 +122,7 @@ angular
       };
 
       $scope.getSortFields = function() {
-        return $scope.sortField === 'votes'
-          ? ['-votes', 'date_created']
-          : 'date_created';
+        return $scope.sortField === 'votes' ? ['-votes', 'date_created'] : 'date_created';
       };
 
       $scope.saveMessage = function(message) {
