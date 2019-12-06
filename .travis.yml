@@ -11,5 +11,5 @@ script: npm run jshint && npm run test
 
 after_script:
   - ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.frontend.json coverage/**/lcov.info  # Format frontend coverage
-  - ./cc-test-reporter sum-coverage coverage/codeclimate.*.json -p 2 
+  - ./cc-test-reporter sum-coverage coverage/codeclimate.*.json -p 1 
   - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage; fi  # Upload coverage/codeclimate.json
