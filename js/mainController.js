@@ -318,7 +318,7 @@ angular
         $scope.import.error = '';
       };
 
-      /* globals Clipboard */
+      /* globals ClipboardJS */
       new ClipboardJS('.import-btn');
 
       angular.element($window).bind('hashchange', function() {
