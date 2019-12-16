@@ -1,4 +1,4 @@
-var Clipboard = function() {};
+var ClipboardJS = function() {};
 
 describe('MainCtrl: ', function() {
   var $rootScope,
@@ -93,7 +93,7 @@ describe('MainCtrl: ', function() {
     });
 
     it('should create a new board', function () {
-      sinon.stub(utils, 'createUserId', function () { return 'userId'; });
+      sinon.stub(utils, 'createUserId').callsFake(function () { return 'userId'; });
       var createUserSpy = sinon.spy(auth, 'createUserAndLog');
       var closeAllSpy = sinon.spy(modalService, 'closeAll');
 
@@ -104,7 +104,7 @@ describe('MainCtrl: ', function() {
     });
 
     it('should create a new board with submitOnEnter fn', function () {
-      sinon.stub(utils, 'createUserId', function () { return 'userId'; });
+      sinon.stub(utils, 'createUserId').callsFake(function () { return 'userId'; });
       var createUserSpy = sinon.spy(auth, 'createUserAndLog');
       var closeAllSpy = sinon.spy(modalService, 'closeAll');
 
@@ -154,7 +154,7 @@ describe('MainCtrl: ', function() {
     });
 
     it('should add a new message', function() {
-      sinon.stub(firebaseService, 'getServerTimestamp', function() { return '00:00:00' });
+      sinon.stub(firebaseService, 'getServerTimestamp').callsFake(function() { return '00:00:00' });
 
       var addMessagePromise = { then: sinon.spy() };
       var addStub = sinon.stub().returns(addMessagePromise);
@@ -189,7 +189,7 @@ describe('MainCtrl: ', function() {
         set: setSpy
       }
 
-      sinon.stub(utils, 'toObject', function () {
+      sinon.stub(utils, 'toObject').callsFake(function () {
         return { column: 'column' };
       });
 
@@ -206,7 +206,7 @@ describe('MainCtrl: ', function() {
         ]
       }
 
-      sinon.stub(firebaseService, 'getBoardColumns', function () {
+      sinon.stub(firebaseService, 'getBoardColumns').callsFake(function () {
         return boardColumns;
       });
     });
@@ -227,7 +227,7 @@ describe('MainCtrl: ', function() {
         }
       ]
 
-      sinon.stub(utils, 'getNextId', function () { return 3; });
+      sinon.stub(utils, 'getNextId').callsFake(function () { return 3; });
 
       $scope.addNewColumn('anotherColumnName');
 
@@ -252,7 +252,7 @@ describe('MainCtrl: ', function() {
         }
       ]
 
-      sinon.stub(utils, 'getNextId', function () { return 3; });
+      sinon.stub(utils, 'getNextId').callsFake(function () { return 3; });
 
       var event = {};
       event.keyCode = 13;
@@ -275,7 +275,7 @@ describe('MainCtrl: ', function() {
         }
       ]
 
-      sinon.stub(utils, 'getNextId', function () { return 3; });
+      sinon.stub(utils, 'getNextId').callsFake(function () { return 3; });
 
       $scope.addNewColumn('');
 
@@ -296,7 +296,7 @@ describe('MainCtrl: ', function() {
         }
       ]
 
-      sinon.stub(utils, 'getNextId', function () { return 3; });
+      sinon.stub(utils, 'getNextId').callsFake(function () { return 3; });
 
       $scope.addNewColumn(undefined);
 

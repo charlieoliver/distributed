@@ -319,7 +319,7 @@ angular
       };
 
       /* globals Clipboard */
-      new Clipboard('.import-btn');
+      new ClipboardJS('.import-btn');
 
       angular.element($window).bind('hashchange', function() {
         $scope.loading = true;
