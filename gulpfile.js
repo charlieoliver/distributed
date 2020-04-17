@@ -41,7 +41,7 @@ var buildHTML = function() {
 };
 
 var bundleVendorCSS = function() {
-  gulp
+  return gulp
     .src([
       "node_modules/font-awesome/css/font-awesome.min.css",
       "stylesheets/vendor/*.css"
@@ -51,9 +51,10 @@ var bundleVendorCSS = function() {
     .pipe(uglifycss())
     .pipe(gulp.dest("dist/css"));
 };
+gulp.task(bundleVendorCSS);
 
 var processSass = function() {
-  gulp
+  return gulp
     .src(["stylesheets/main.scss"])
     .pipe(sass().on("error", sass.logError))
     .pipe(gp_rename("main.css"))
@@ -61,9 +62,10 @@ var processSass = function() {
     .pipe(uglifycss())
     .pipe(gulp.dest("dist/css"));
 };
+gulp.task(processSass);
 
 var bundleVendorJS = function() {
-  gulp
+  return gulp
     .src([
       "js/vendor/jquery-3.2.1.min.js",
       "node_modules/angular/angular.min.js",
@@ -84,24 +86,26 @@ var bundleVendorJS = function() {
     .pipe(concat("vendor.js"))
     .pipe(gulp.dest("dist"));
 };
+gulp.task(bundleVendorJS);
 
 var minifyJS = function() {
-  gulp
+  return gulp
     .src(["js/*.js", "js/**/*.js", "!js/vendor/*.js"])
     .pipe(concat("main.js"))
     .pipe(gulp.dest("dist"));
 };
+gulp.task(minifyJS);
 
-gulp.task("clean-dist", function() {
+gulp.task("clean_dist", function() {
   return gulp.src("dist/*", { read: false }).pipe(clean());
 });
 
-gulp.task("bundle", function() {
-  bundleVendorCSS();
-  bundleVendorJS();
-  processSass();
-  minifyJS();
-});
+gulp.task("bundle", gulp.series(
+  bundleVendorCSS,
+  bundleVendorJS,
+  processSass,
+  minifyJS,
+));
 
 gulp.task("watch", function(cb) {
   watch("dist/*", notifyLiveReload);
@@ -112,14 +116,15 @@ gulp.task("watch", function(cb) {
   watch("js/**/*.js", minifyJS);
 });
 
-gulp.task("lint", function() {
-  return gulp
+gulp.task("lint", function(done) {
+   gulp
     .src(["!js/vendor/**/*.js", "js/**/*.js"])
     .pipe(jshint(".jshintrc"))
     .pipe(jshint.reporter("jshint-stylish"));
+    done();
 });
 
-gulp.task("watch-test", function(done) {
+gulp.task("watch_test", function(done) {
   return new Server(
     {
       configFile: __dirname + "/karma.conf.js",
@@ -129,7 +134,7 @@ gulp.task("watch-test", function(done) {
   ).start();
 });
 
-gulp.task("test-once", function(done) {
+gulp.task("test_once", function(done) {
   Server.start(
     {
       configFile: __dirname + "/karma.conf.js",
@@ -142,7 +147,7 @@ gulp.task("test-once", function(done) {
   );
 });
 
-gulp.task("copy", function() {
+gulp.task("copy", function(done) {
   gulp
     .src("node_modules/roboto-fontface/fonts/*{Regular,Bold}.*")
     .pipe(gulp.dest("dist/fonts"));
@@ -153,12 +158,13 @@ gulp.task("copy", function() {
   gulp.src("favicon.ico").pipe(gulp.dest("dist"));
   gulp.src("firebase.json").pipe(gulp.dest("dist"));
   gulp.src("README.md").pipe(gulp.dest("dist"));
-  gulp.src("CNAME").pipe(gulp.dest("dist"));
+  // gulp.src("CNAME").pipe(gulp.dest("dist"));
 
   buildHTML();
+  done();
 });
 
-gulp.task("default", ["bundle", "copy", "express", "livereload", "watch"]);
-gulp.task("test", ["lint", "watch-test"]);
-gulp.task("testci", ["lint", "test-once"]);
-gulp.task("build", ["clean-dist", "bundle", "copy"]);
+gulp.task("default", ()=> gulp.series('bundle', 'copy', 'express', 'livereload', 'watch')());
+gulp.task("test", (done)=> gulp.series('lint', 'watch_test')(done()));
+gulp.task("testci", (done)=> gulp.series('lint', 'test_once')(done()));
+gulp.task("build", (done)=> gulp.series('clean_dist', 'bundle', 'copy')(done()));

@@ -19,7 +19,7 @@ describe('Utils: ', function() {
 
   it('should create an user ID with random characters', function(){
     var count = 0.001;
-    sinon.stub(Math, 'random', function () {
+    sinon.stub(Math, 'random').callsFake(function () {
       count = count + 0.054;
       return count;
     });

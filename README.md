@@ -1,9 +1,11 @@
-# Fun Retro
+# Retro
 
 Easy to use and beautiful restrospective board.
 
-[![Build](https://travis-ci.org/funretro/distributed.svg?branch=master)](https://travis-ci.org/funretro/distributed)
-<a href="https://codeclimate.com/github/funretro/distributed"><img src="https://codeclimate.com/github/glauberramos/fireideaz/badges/gpa.svg" /></a>&nbsp;[![devDependency Status](https://david-dm.org/funretro/distributed/dev-status.svg)](https://david-dm.org/funretro/distributed#info=devDependencies)
+[![Build Status](https://travis-ci.org/Lilanga/retro.svg?branch=master)](https://travis-ci.org/Lilanga/retro)
+[![Maintainability](https://api.codeclimate.com/v1/badges/48f83c0fd6822295411f/maintainability)](https://codeclimate.com/github/Lilanga/retro/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/48f83c0fd6822295411f/test_coverage)](https://codeclimate.com/github/Lilanga/retro/test_coverage)
+[![dependencies Status](https://david-dm.org/Lilanga/retro/status.svg)](https://david-dm.org/Lilanga/retro)
 
 ## How to setup local environment
 
@@ -41,7 +43,7 @@ git update-index --assume-unchanged js/vendor/firebaseInitialization.js
 
 ## Contribute to Fun Retro
 
-Take a look on our [Contributing](https://github.com/funretro/distributed/blob/master/CONTRIBUTING.md) guide
+Take a look on our [Contributing](https://github.com/Lilanga/retro/blob/master/CONTRIBUTING.md) guide
 
 ## Running the application
 
@@ -52,7 +54,7 @@ Take a look on our [Contributing](https://github.com/funretro/distributed/blob/m
 
 ## Continuous Integration
 
-Our tests run on [TravisCI](https://travis-ci.org/funretro/distributed)
+Our tests run on [TravisCI](https://travis-ci.org/Lilanga/retro)
 
 ## Running the tests
 

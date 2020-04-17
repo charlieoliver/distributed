@@ -13,7 +13,7 @@ angular
     '$rootScope',
     'FirebaseService',
     'ModalService',
-    'FEATURES',
+    'Features',
     function(
       $scope,
       $filter,
@@ -23,7 +23,7 @@ angular
       $rootScope,
       firebaseService,
       modalService,
-      FEATURES
+      features
     ) {
       $scope.loading = true;
       $scope.messageTypes = utils.messageTypes;
@@ -32,7 +32,7 @@ angular
         name: '',
         text_editing_is_private: true
       };
-      $scope.features = FEATURES;
+      $scope.features = features;
       $scope.userId = $window.location.hash.substring(1) || '';
       $scope.searchParams = {};
       $window.location.search
@@ -79,7 +79,6 @@ angular
             window.location.hash = '';
             location.reload();
           }
-
           $scope.board = board.val();
           $scope.maxVotes = board.val().max_votes ? board.val().max_votes : 6;
           $scope.boardId = $rootScope.boardId = board.val().boardId;
@@ -321,8 +320,8 @@ angular
         $scope.import.error = '';
       };
 
-      /* globals Clipboard */
-      new Clipboard('.import-btn');
+      /* globals ClipboardJS */
+      new ClipboardJS('.import-btn');
 
       angular.element($window).bind('hashchange', function() {
         $scope.loading = true;
